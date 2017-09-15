@@ -1,0 +1,113 @@
+<header>Website Builder</header>
+<p></p>
+<div class="area" id="content" contenteditable></div>
+<h2>Add...</h2>
+<button onclick="heading()">Heading</button><button onclick="subheading()">Subheading</button><button onclick="lb()">Link (Button)</button><button onclick="lt()">Link (text)</button><button onclick="img()">Image</button><button onclick="color()">Colored text</button><br><h2>Change...</h2><button onclick="ta()">Text alignment</button><button onclick="font()">Font</button><br><h2>Actions...</h2><button onclick="save()">Save</button><button onclick="load()">Load</button><button onclick="html()">Export as HTML</button><p id="cap"></p>
+<script>
+console.log("Please get out of my code. Now.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhy are you still here?")
+  function heading() {
+      var text = prompt("Enter text to be added in the header:")
+      var conf = confirm("Use default colors?")
+      if(conf === true) {
+        document.getElementById("content").innerHTML += "<header>" + text + "</header>"
+      }
+      else {
+      var color = prompt("Enter color 1")
+      var color2 = prompt("Enter color 2")
+      document.getElementById("content").innerHTML += "<header style='color: " + color + "; background: " + color2 + ";'>" + text + "</header>"
+      }
+  }
+  function subheading() {
+      var text = prompt("Enter text to be added in the subheader:")
+      var conf = confirm("Use default color?")
+      if(conf === true) {
+        document.getElementById("content").innerHTML += "<h2>" + text + "</h2>"
+      }
+      else {
+        var color = prompt("Enter color:")
+        document.getElementById("content").innerHTML += "<h2 style='color: " + color + ";'>" + text + "</h2>"
+      }
+  }
+  function lb() {
+    var text = prompt("Enter text for button:")
+    var link = prompt("Enter link:")
+      document.getElementById("content").innerHTML += "<a href='" + link + "'><button>" + text + "</button></a>"
+    var conf = prompt("Use default colors?")
+  }
+  function lt() {
+    var text = prompt("Enter text for link:")
+    var link = prompt("Enter link:")
+      document.getElementById("content").innerHTML += "<a href='" + link + "'>" + text + "</a>"
+  }
+  function ta() {
+    var align = prompt("Enter alignment direction:")
+    document.getElementById("content").style.textAlign = align
+  }
+  function font() {
+    var font = prompt("Enter font name:")
+    document.getElementById("content").style.fontFamily = font
+  }
+  function img() {
+    var image = prompt("Enter image URL:")
+    document.getElementById("content").innerHTML += "<img src='" + image + "'>"
+  }
+  function color() {
+    var text = prompt("Enter text:")
+    var color = prompt("Enter color:")
+    document.getElementById("content").innerHTML += "<c style='color: " + color + ";'>" + text + "</c>"
+  }
+  function save() {
+    var name = prompt("Enter a name for your website that you will remember:")
+    var content = document.getElementById("content").innerHTML
+    localStorage.setItem(name, content)
+  }
+  function load() {
+    var name = prompt("Enter file name:")
+    document.getElementById("content").innerHTML = localStorage.getItem(name)
+  }
+  function html() {
+    document.getElementById("cap").innerHTML = "<p>Copy and paste this to any text editor, and save it as an HTML file.</p><textarea rows=10>" + document.getElementById("content").innerHTML + "<style>header { font-size: 35px; text-align: center; font-family: calibri; background: black; color: white;}body {font-family: calibri;}.area {border: 3px dashed grey; min-height: 300px;}[contenteditable]:focus {outline: none;}.area h2 {font-family: calibri; text-align: center;} h2 {font-family: calibri;} button {background: black; color: white; border: 3px solid white; padding: 10px 30px; font-size: 20px; transition: 0.5s;}button:hover {background: white; border: 3px solid black; color: black;}</textarea><br><button onclick='done()'>Done</button>"
+  }
+  function done() {
+    document.getElementById("cap").innerHTML = ""
+  }
+</script>
+<style>
+   header {
+  font-size: 35px;
+  text-align: center;
+  font-family: calibri;
+  background: black;
+  color: white;
+}
+body {
+  font-family: calibri;
+}
+.area {
+  border: 3px dashed grey;
+  min-height: 300px;
+}
+[contenteditable]:focus {
+    outline: none;
+}
+.area h2 {
+  font-family: calibri;
+  text-align: center;
+}
+h2 {
+  font-family: calibri;
+}
+button {
+  background: black;
+  color: white;
+  border: 3px solid white;
+  padding: 10px 30px;
+  font-size: 20px;
+  transition: 0.5s;
+}
+button:hover {
+  background: white;
+  border: 3px solid black;
+  color: black;
+}
+</style>
