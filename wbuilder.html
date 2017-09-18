@@ -31,8 +31,15 @@ console.log("Please get out of my code. Now.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
   function lb() {
     var text = prompt("Enter text for button:")
     var link = prompt("Enter link:")
+    var conf = confirm("Use default colors?")
+    if(conf === true) {
       document.getElementById("content").innerHTML += "<a href='" + link + "'><button>" + text + "</button></a>"
-    var conf = prompt("Use default colors?")
+      }
+      else {
+        var color = prompt("Enter color 1:")
+        var color2 = prompt("Enter color 2:")
+        document.getElementById("content").innerHTML += "<a href=" + link + "><button style='color: " + color + "; background: " + color2 + ";'>" + text + "</button>"
+      }
   }
   function lt() {
     var text = prompt("Enter text for link:")
@@ -66,8 +73,11 @@ console.log("Please get out of my code. Now.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
     document.getElementById("content").innerHTML = localStorage.getItem(name)
   }
   function html() {
-    document.getElementById("cap").innerHTML = "<p>Copy and paste this to any text editor, and save it as an HTML file.</p><textarea rows=10>" + document.getElementById("content").innerHTML + "<style>header { font-size: 35px; text-align: center; font-family: calibri; background: black; color: white;}body {font-family: calibri;}.area {border: 3px dashed grey; min-height: 300px;}[contenteditable]:focus {outline: none;}.area h2 {font-family: calibri; text-align: center;} h2 {font-family: calibri;} button {background: black; color: white; border: 3px solid white; padding: 10px 30px; font-size: 20px; transition: 0.5s;}button:hover {background: white; border: 3px solid black; color: black;}</textarea><br><button onclick='done()'>Done</button>"
+    window.scrollTo(0, 520)
+    document.getElementById("cap").innerHTML = "<p>Copy and paste this to any text editor, and save it as an HTML file.</p><textarea rows=10>" + document.getElementById("content").innerHTML + "<style>header { font-size: 35px; text-align: center; font-family: calibri; background: black; color: white;}body {font-family: calibri;}.area {border: 3px dashed grey; min-height: 300px; font-family: " + document.getElementById("content").style.fontFamily + "; text-align: " + document.getElementById("content").style.textAlign + ";}[contenteditable]:focus {outline: none;}.area h2 {font-family: calibri; text-align: center;} h2 {font-family: calibri;} button {background: black; color: white; border: 3px solid white; padding: 10px 30px; font-size: 20px; transition: 0.5s;}button:hover {background: white; border: 3px solid black; color: black;}</style</textarea><br><button onclick='done()'>Done</button>"
   }
+  document.getElementById("content").style.textAlign = "left"
+  document.getElementById("content").style.fontFamily = "calibri"
   function done() {
     document.getElementById("cap").innerHTML = ""
   }
