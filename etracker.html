@@ -1,0 +1,198 @@
+<!--
+To clear all data, go to the console and type 'clear()'
+-->
+<header>Exercise Tracker</header>
+<h2>Log...</h2>
+<button onclick="steps()">Steps</button><button onclick="hr()">Heart Rate</button><button onclick="weight()">Weight</button><button onclick="wc()">Water consumption</button>
+<p id="inputs"></p>
+<h2>Data</h2>
+<p id="steps"><b>Steps:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p>
+<p id="hr"><b>HR:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p>
+<p id="weight"><b>Weight:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p>
+<p id="wc"><b>Water consumption:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p>
+<h2>Logs</h2>
+<p id="logs">Nothing here yet...</p>
+<script>
+function clear() {
+  localStorage.setItem("steps", "0");
+localStorage.setItem("hr", "0");
+localStorage.setItem("weight", "0");
+localStorage.setItem("wc", "0");
+localStorage.setItem("logs", "");
+}
+if(localStorage.getItem("logs") == null) {
+localStorage.setItem("logs", "")
+}
+else {
+  document.getElementById("logs").innerHTML = localStorage.getItem("logs")
+}
+if(localStorage.getItem("steps") != null) {
+document.getElementById("steps").innerHTML = "<b>Steps:</b> " + localStorage.getItem("steps")
+}
+if(localStorage.getItem("steps") == null) {
+  localStorage.setItem("steps", "0")
+  document.getElementById("steps").innerHTML = "<b>Steps:</b> " + localStorage.getItem("steps")
+}
+if(localStorage.getItem("hr") != null) {
+document.getElementById("hr").innerHTML = "<b>HR:</b> " + localStorage.getItem("hr") + " BPM"
+}
+if(localStorage.getItem("hr") == null) {
+  localStorage.setItem("hr", "0")
+  document.getElementById("hr").innerHTML = "<b>HR:</b> " + localStorage.getItem("hr") + " BPM"
+}
+if(localStorage.getItem("weight") != null) {
+document.getElementById("weight").innerHTML = "<b>Weight:</b> " + localStorage.getItem("weight") + " lbs"
+}
+if(localStorage.getItem("weight") == null) {
+  localStorage.setItem("weight", "0")
+  document.getElementById("weight").innerHTML = "<b>Weight:</b> " + localStorage.getItem("weight") + " lbs"
+}
+if(localStorage.getItem("wc") != null) {
+document.getElementById("wc").innerHTML = "<b>Water consumption:</b> " + localStorage.getItem("wc") + " oz"
+}
+if(localStorage.getItem("wc") == null) {
+  localStorage.setItem("wc", "0")
+  document.getElementById("wc").innerHTML = "<b>Water consumption:</b> " + localStorage.getItem("wc") + " oz"
+}
+function steps() {
+document.getElementById("inputs").innerHTML = "<p>Enter steps:</p><br><input type='number' id='input'><br><button class='small' onclick='logSteps()'>Done</button>"
+}
+function hr() {
+document.getElementById("inputs").innerHTML = "<p>Enter HR (BPM):</p><br><input type='number' id='input'><br><button class='small' onclick='logHR()'>Done</button>"
+}
+function weight() {
+  document.getElementById("inputs").innerHTML = "<p>Enter weight (lbs):</p><br><input type='number' id='input'><br><button class='small' onclick='logWeight()'>Done</button>"
+}
+function wc() {
+  document.getElementById("inputs").innerHTML = "<p>Enter amount (oz):</p><br><input type='number' id='input'><br><button class='small' onclick='logWc()'>Done</button>"
+}
+function logWc() {
+   if(document.getElementById("input").value != "") {
+  var st = document.getElementById("input").value
+  if(st.charAt(0) != "-") {
+  var w = eval(document.getElementById("input").value)
+  var wa = eval(localStorage.getItem("wc"))
+  var wc = eval(w + wa)
+  localStorage.setItem("wc", wc)
+  document.getElementById("wc").innerHTML = "<b>Water consumption:</b> " + wc + " oz"
+  var logs = localStorage.getItem("logs")
+  localStorage.setItem("logs", Date() + ": Drank " + document.getElementById("input").value + " ounces of water <br>" + logs)
+  document.getElementById("logs").innerHTML = localStorage.getItem("logs")
+  document.getElementById("inputs").innerHTML = ""
+  }
+  else {
+    alert("Please enter a valid value.")
+  }
+   }
+   else {
+     alert("Please enter a value.")
+   }
+}
+function logWeight() {
+  if(document.getElementById("input").value != "") {
+  var weight = document.getElementById("input").value
+  localStorage.setItem("weight", weight)
+  document.getElementById("weight").innerHTML = "<b>Weight:</b> " + weight + " lbs"
+  var logs = localStorage.getItem("logs")
+  localStorage.setItem("logs", Date() + ": Weight logged as " + weight + " lbs<br>" + logs)
+  document.getElementById("logs").innerHTML = localStorage.getItem("logs")
+  document.getElementById("inputs").innerHTML = ""
+  }
+  else {
+    alert("Please enter a value.")
+  }
+}
+function logHR() {
+  if(document.getElementById("input").value != "") {
+  var HR = document.getElementById("input").value
+  localStorage.setItem("hr", HR)
+  document.getElementById("hr").innerHTML = "<b>HR:</b> " + HR + " BPM"
+  var logs = localStorage.getItem("logs")
+  localStorage.setItem("logs", Date() + ": Heart rate logged as " + HR + " BPM<br>" + logs)
+  document.getElementById("logs").innerHTML = localStorage.getItem("logs")
+  document.getElementById("inputs").innerHTML = ""
+  }
+  else {
+    alert("Please enter a value.")
+  }
+}
+function logSteps() {
+   if(document.getElementById("input").value != "") {
+  var str = document.getElementById("input").value
+  if(str.charAt(0) != "-") {
+  var s = eval(document.getElementById("input").value)
+  var st = eval(localStorage.getItem("steps"))
+  var steps = eval(s + st)
+  localStorage.setItem("steps", steps)
+  document.getElementById("steps").innerHTML = "<b>Steps:</b> " + steps
+  var logs = localStorage.getItem("logs")
+  localStorage.setItem("logs", Date() + ": Walked " + document.getElementById("input").value + " steps<br>" + logs)
+  document.getElementById("logs").innerHTML = localStorage.getItem("logs")
+  document.getElementById("inputs").innerHTML = ""
+  }
+  else {
+    alert("Please enter a valid value.")
+  }
+   }
+   else {
+     alert("Please enter a value.")
+   }
+}
+</script>
+<style>
+   header {
+  font-size: 35px;
+  text-align: center;
+  font-family: calibri;
+  background: black;
+  color: white;
+}
+.small {
+  background: black;
+  color: white;
+  border: none;
+  padding: 5px 83px;
+  font-size: 15px;
+  transition: 0.5s;
+}
+body {
+  font-family: calibri;
+}
+input {
+  outline: none;
+}
+.area {
+  border: 3px dashed grey;
+  min-height: 300px;
+}
+[contenteditable]:focus {
+    outline: none;
+}
+.area h2 {
+  font-family: calibri;
+  text-align: center;
+}
+h2 {
+  font-family: calibri;
+}
+button {
+  background: black;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  font-size: 20px;
+  transition: 0.5s;
+}
+button:hover {
+  background: white;
+  border: none;
+  color: black;
+}
+button:disabled {
+  background: gray;
+  color: lightgray;
+}
+button:disabled:hover {
+  border: solid white 3px;
+}
+</style>
