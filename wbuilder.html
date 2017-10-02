@@ -1,50 +1,53 @@
-<header>Website Builder</header>
+<header>WebBuilder</header>
 <p></p>
+<!--WHAT ARE YOU DOING IN MY CODE?!?!?!?!?!
+just leave...
+now...
+-->
 <div class="area" id="content" contenteditable></div>
+<p id="config"></p>
 <h2>Add...</h2>
-<button onclick="heading()">Heading</button><button onclick="subheading()">Subheading</button><button onclick="lb()">Link (Button)</button><button onclick="lt()">Link (text)</button><button onclick="img()">Image</button><button onclick="color()">Colored text</button><br><h2>Change...</h2><button onclick="ta()">Text alignment</button><button onclick="font()">Font</button><br><h2>Actions...</h2><button onclick="save()">Save</button><button onclick="load()">Load</button><button onclick="html()">Export as HTML</button><p id="cap"></p>
+<button onclick="heading()">Heading</button><button onclick="subheading()">Subheading</button><button onclick="lb()">Link (Button)</button><button onclick="lt()">Link (text)</button><button onclick="img()">Image</button><button onclick="color()">Colored text</button><button onclick="tb()">Text box</button><br><h2>Change...</h2><button onclick="ta()">Text alignment</button><button onclick="font()">Font</button><br><h2>Actions...</h2><button onclick="save()">Save</button><button onclick="load()">Load</button><button onclick="html()">Export as HTML</button><p id="cap"></p>
 <script>
 console.log("Please get out of my code. Now.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhy are you still here?")
   function heading() {
-      var text = prompt("Enter text to be added in the header:")
-      var conf = confirm("Use default colors?")
-      if(conf === true) {
-        document.getElementById("content").innerHTML += "<header>" + text + "</header>"
-      }
-      else {
-      var color = prompt("Enter color 1")
-      var color2 = prompt("Enter color 2")
+    document.getElementById("config").innerHTML = "<c>Text:</c> <input id='t'><br><c>Text color: </c> <input type='color' id='c1' value='#ffffff'><br><c>Background color: </c> <input type='color' id='c2'><br><button onclick='wrHeading()'>Done</button>"
+  }
+  function wrHeading() {
+    var text = document.getElementById("t").value
+      var color = document.getElementById("c1").value
+      var color2 = document.getElementById("c2").value
       document.getElementById("content").innerHTML += "<header style='color: " + color + "; background: " + color2 + ";'>" + text + "</header>"
-      }
+      document.getElementById("config").innerHTML = ""
   }
   function subheading() {
-      var text = prompt("Enter text to be added in the subheader:")
-      var conf = confirm("Use default color?")
-      if(conf === true) {
-        document.getElementById("content").innerHTML += "<h2>" + text + "</h2>"
-      }
-      else {
-        var color = prompt("Enter color:")
-        document.getElementById("content").innerHTML += "<h2 style='color: " + color + ";'>" + text + "</h2>"
-      }
+      document.getElementById("config").innerHTML = "<c>Text:</c> <input id='t'><br><c>Color: </c> <input type='color' id='c1' value='#000000'><br><button onclick='wrSubheading()'>Done</button>"
+  }
+  function wrSubheading() {
+    var text = document.getElementById("t").value
+      var color = document.getElementById("c1").value
+      document.getElementById("content").innerHTML += "<h2 style='color: " + color + ";'>" + text + "</h2>"
+      document.getElementById("config").innerHTML = ""
   }
   function lb() {
-    var text = prompt("Enter text for button:")
-    var link = prompt("Enter link:")
-    var conf = confirm("Use default colors?")
-    if(conf === true) {
-      document.getElementById("content").innerHTML += "<a href='" + link + "'><button>" + text + "</button></a>"
-      }
-      else {
-        var color = prompt("Enter color 1:")
-        var color2 = prompt("Enter color 2:")
-        document.getElementById("content").innerHTML += "<a href=" + link + "><button style='color: " + color + "; background: " + color2 + ";'>" + text + "</button>"
-      }
+    document.getElementById("config").innerHTML = "<c>Text:</c> <input id='t'><br><c> Text color: </c> <input type='color' id='c1' value='#ffffff'><br><c> Background color: </c> <input type='color' id='c2' value='#000000'><br><c>Link:</c> <input id='l'><br><button onclick='wrLb()'>Done</button>"
+  }
+  function wrLb() {
+     var text = document.getElementById("t").value
+      var color = document.getElementById("c1").value
+      var color2 = document.getElementById("c2").value
+      var link = document.getElementById("l").value
+      document.getElementById("content").innerHTML += "<a href='" + link + "'><button style='color: " + color + "; background: " + color2 + "'>" + text + "</button></a>"
+      document.getElementById("config").innerHTML = ""
   }
   function lt() {
-    var text = prompt("Enter text for link:")
-    var link = prompt("Enter link:")
+    document.getElementById("config").innerHTML = "<c>Text:</c> <input id='t'><br><c>Link:</c> <input id='l'><br><button onclick='wrLt()'>Done</button>"
+  }
+  function wrLt() {
+    var text = document.getElementById("t").value
+    var link = document.getElementById("l").value
       document.getElementById("content").innerHTML += "<a href='" + link + "'>" + text + "</a>"
+      document.getElementById("config").innerHTML = ""
   }
   function ta() {
     var align = prompt("Enter alignment direction:")
@@ -55,8 +58,12 @@ console.log("Please get out of my code. Now.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
     document.getElementById("content").style.fontFamily = font
   }
   function img() {
-    var image = prompt("Enter image URL:")
+    document.getElementById("config").innerHTML = "<c>Link:</c> <input id='l'><br><button onclick='wrImg()'>Done</button>"
+  }
+  function wrImg() {
+    var image = document.getElementById("l").value
     document.getElementById("content").innerHTML += "<img src='" + image + "'>"
+    document.getElementById("config").innerHTML = ""
   }
   function color() {
     var text = prompt("Enter text:")
@@ -74,12 +81,18 @@ console.log("Please get out of my code. Now.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
   }
   function html() {
     window.scrollTo(0, 520)
-    document.getElementById("cap").innerHTML = "<p>Copy and paste this to any text editor, and save it as an HTML file.</p><textarea rows=10>" + document.getElementById("content").innerHTML + "<style>header { font-size: 35px; text-align: center; font-family: calibri; background: black; color: white;}body {font-family: calibri;}.area {border: 3px dashed grey; min-height: 300px; font-family: " + document.getElementById("content").style.fontFamily + "; text-align: " + document.getElementById("content").style.textAlign + ";}[contenteditable]:focus {outline: none;}.area h2 {font-family: calibri; text-align: center;} h2 {font-family: calibri;} button {background: black; color: white; border: 3px solid white; padding: 10px 30px; font-size: 20px; transition: 0.5s;}button:hover {background: white; border: 3px solid black; color: black;}</style</textarea><br><button onclick='done()'>Done</button>"
+    document.getElementById("cap").innerHTML = "<p>Copy and paste this to any text editor, and save it as an HTML file.</p><textarea rows=10>" + document.getElementById("content").innerHTML + "<style>header { font-size: 35px; text-align: center; font-family: calibri; background: black; color: white;} body {font-family: " + document.getElementById("content").style.fontFamily + "; text-align: " + document.getElementById("content").style.textAlign + ";}[contenteditable]:focus {outline: none;}.area h2 {font-family: calibri; text-align: center;} h2 {font-family: calibri;} button {background: black; color: white; border: 3px solid white; padding: 10px 30px; font-size: 20px; transition: 0.5s;}button:hover {background: white; border: 3px solid black; color: black;}</style</textarea><br><button onclick='done()'>Done</button>"
   }
   document.getElementById("content").style.textAlign = "left"
   document.getElementById("content").style.fontFamily = "calibri"
   function done() {
     document.getElementById("cap").innerHTML = ""
+  }
+  function tb() {
+    var color = prompt("Enter box color:")
+    var border = prompt("Enter border color:")
+    var align = prompt("Enter alignment:")
+      document.getElementById("content").innerHTML += "<div style='background: " + color + "; margin: 40px; min-height: 100px; border: 3px solid " + border + ";'><p style='margin: auto; text-align: " + align + ";'>Enter text here</p></div>"
   }
 </script>
 <style>
@@ -113,6 +126,14 @@ button {
   border: 3px solid white;
   padding: 10px 30px;
   font-size: 20px;
+  transition: 0.5s;
+}
+.small button {
+  background: black;
+  color: white;
+  border: 3px solid white;
+  padding: 5px 10px;
+  font-size: 10px;
   transition: 0.5s;
 }
 button:hover {
