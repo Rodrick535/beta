@@ -3,16 +3,50 @@ To clear all data, go to the console and type 'clear()'
 -->
 <header>Exercise Tracker</header>
 <h2>Log...</h2>
+<div class="buttons">
 <button onclick="steps()">Steps</button><button onclick="hr()">Heart Rate</button><button onclick="weight()">Weight</button><button onclick="wc()">Water consumption</button>
+</div>
 <p id="inputs"></p>
-<h2>Data</h2>
-<p id="steps"><b>Steps:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p>
-<p id="hr"><b>HR:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p>
-<p id="weight"><b>Weight:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p>
-<p id="wc"><b>Water consumption:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p>
-<h2>Logs</h2>
+<h2 class="line">Data</h2>
+<div class="sideline">
+  <div class="line2"></div>
+  <div class="line2"><p id="steps"><b>Steps:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p>
+  </div>
+<div class="line2"><p id="hr"><b>HR:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p></div>
+<div class="line2"><p id="weight"><b>Weight:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p></div>
+<div class="line2"><p id="wc"><b>Water consumption:</b> <c title="If you are seeing this text, It means your browser is not compatible with localStorage, which is requiered to keep track of your fitness stats.">Unable to obtain</c></p></div>
+</div>
+<h2 class="line">Generate or load FitCode</h2>
+<div class="buttons"><button onclick="fgen()">Generate</button><button  onclick="fcload()">Load</button></div>
+<p>FitCodes are codes that you can generate and send to your doctor (or anyone else) to view your stats with.</p>
+<h2 class="line">Logs</h2>
+<div class="sideline">
 <p id="logs">Nothing here yet...</p>
+</div>
 <script>
+function fgen() {
+  var code = localStorage.getItem("steps") + "&*(^&*(" + localStorage.getItem("hr") + "&*(^&*(" + localStorage.getItem("weight") + "&*(^&*(" + localStorage.getItem("wc") + "&*(^&*(" + localStorage.getItem("logs")
+  document.getElementById("inputs").innerHTML = "<p>Here is your fitcode. Please copy and paste this so you can send it to your doctor, or anyone else that you would like to see this. You can also use this code to load your data if you usemore then one computer.</p> <textarea>" + code + "</textarea><br><button class='small' onclick='done()'>Done</button>"
+}
+function fcload() {
+  document.getElementById("inputs").innerHTML = "<p>Please paste in your FitCode below:</p><br><input id='input'><br><button onclick='wrfcload()'>Load</button>"
+}
+function wrfcload() {
+  var i = document.getElementById("input").value
+  var load = i.split("&*(^&*(")
+  localStorage.setItem("steps", load[0])
+  localStorage.setItem("hr", load[1])
+  localStorage.setItem("weight", load[2])
+  localStorage.setItem("wc", load[3])
+  localStorage.setItem("logs", load[4])
+  done2()
+}
+function done() {
+  document.getElementById("inputs").innerHTML = ""
+}
+function done2() {
+  document.getElementById("inputs").innerHTML = "Please reload the page..."
+}
 function clear() {
   localStorage.setItem("steps", "0");
 localStorage.setItem("hr", "0");
@@ -76,7 +110,7 @@ function logWc() {
   localStorage.setItem("wc", wc)
   document.getElementById("wc").innerHTML = "<b>Water consumption:</b> " + wc + " oz"
   var logs = localStorage.getItem("logs")
-  localStorage.setItem("logs", Date() + ": Drank " + document.getElementById("input").value + " ounces of water <br>" + logs)
+  localStorage.setItem("logs","<div class='line2'>" + Date() + ": Drank " + document.getElementById("input").value + " ounces of water </div><br>" + logs)
   document.getElementById("logs").innerHTML = localStorage.getItem("logs")
   document.getElementById("inputs").innerHTML = ""
   }
@@ -94,7 +128,7 @@ function logWeight() {
   localStorage.setItem("weight", weight)
   document.getElementById("weight").innerHTML = "<b>Weight:</b> " + weight + " lbs"
   var logs = localStorage.getItem("logs")
-  localStorage.setItem("logs", Date() + ": Weight logged as " + weight + " lbs<br>" + logs)
+  localStorage.setItem("logs","<div class='line2'>" + Date() + ": Weight logged as " + weight + " lbs</div><br>" + logs)
   document.getElementById("logs").innerHTML = localStorage.getItem("logs")
   document.getElementById("inputs").innerHTML = ""
   }
@@ -108,7 +142,7 @@ function logHR() {
   localStorage.setItem("hr", HR)
   document.getElementById("hr").innerHTML = "<b>HR:</b> " + HR + " BPM"
   var logs = localStorage.getItem("logs")
-  localStorage.setItem("logs", Date() + ": Heart rate logged as " + HR + " BPM<br>" + logs)
+  localStorage.setItem("logs","<div class='line2'>" + Date() + ": Heart rate logged as " + HR + " BPM</div><br>" + logs)
   document.getElementById("logs").innerHTML = localStorage.getItem("logs")
   document.getElementById("inputs").innerHTML = ""
   }
@@ -126,7 +160,7 @@ function logSteps() {
   localStorage.setItem("steps", steps)
   document.getElementById("steps").innerHTML = "<b>Steps:</b> " + steps
   var logs = localStorage.getItem("logs")
-  localStorage.setItem("logs", Date() + ": Walked " + document.getElementById("input").value + " steps<br>" + logs)
+  localStorage.setItem("logs","<div class='line2'>" + Date() + ": Walked " + document.getElementById("input").value + " steps</div><br>" + logs)
   document.getElementById("logs").innerHTML = localStorage.getItem("logs")
   document.getElementById("inputs").innerHTML = ""
   }
@@ -140,26 +174,52 @@ function logSteps() {
 }
 </script>
 <style>
+body {
+  transition: 0.3s;
+}
    header {
   font-size: 35px;
   text-align: center;
   font-family: calibri;
-  background: black;
-  color: white;
+  background: white;
+  color: gray;
+  border-bottom: 2px solid lightgray;
+  border-left: none;
+  border-right: none;
+  border-top: 2px solid lightgray;
 }
 .small {
+  margin-top: 5px;
   background: black;
   color: white;
-  border: none;
-  padding: 5px 83px;
+  padding: 5px 10px;
   font-size: 15px;
   transition: 0.5s;
+  border: none;
 }
-body {
-  font-family: calibri;
+.small:hover {
+  background: white;
+  color: black;
+  border: none;
 }
 input {
+  background: white;
+  padding: 5px 3px;
   outline: none;
+  transition: 0.3s;
+  border-bottom: 2px solid lightgray;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+input:focus {
+  background: lightgray;
+  padding: 10px 17px;
+  border-bottom: 2px solid gray;
+}
+
+body {
+  font-family: calibri;
 }
 .area {
   border: 3px dashed grey;
@@ -175,18 +235,36 @@ input {
 h2 {
   font-family: calibri;
 }
+.line {
+  border-bottom: 2px solid lightgray;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.line2 {
+  border-bottom: 2px solid gray;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
 button {
   background: black;
   color: white;
-  border: none;
+  border-bottom: 2px solid lightgray;
+  border-top: none;
+  border-left: none;
+  border-right: none;
   padding: 10px 30px;
   font-size: 20px;
   transition: 0.5s;
 }
 button:hover {
-  background: white;
-  border: none;
-  color: black;
+  background: black;
+  border-bottom: 2px solid gray;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  color: white;
 }
 button:disabled {
   background: gray;
@@ -194,5 +272,28 @@ button:disabled {
 }
 button:disabled:hover {
   border: solid white 3px;
+}
+button:focus {
+  border-bottom: 3px solid green;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+}
+.buttons {
+  background: black;
+  height: 44px;
+  border-bottom: 3px solid lightgray;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.sideline {
+  border-bottom: none;
+  border-top: none;
+  border-left: 5px solid gray;
+  padding: 8px;
+  border-right: none;
+  background: lightgray;
 }
 </style>
